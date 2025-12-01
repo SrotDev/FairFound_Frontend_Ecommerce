@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { useEcommerce } from "@/context/EcommerceContext";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const storeProfileSchema = z.object({
   name: z.string().trim().min(1, "Store name is required").max(100, "Name must be less than 100 characters"),
@@ -57,6 +58,7 @@ const StoreProfile = () => {
   const { storeProfile, updateStoreProfile, metrics } = useEcommerce();
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const form = useForm<StoreProfileFormData>({
     resolver: zodResolver(storeProfileSchema),
@@ -110,12 +112,24 @@ const StoreProfile = () => {
       <div className="container mx-auto px-4 max-w-5xl">
         {/* Header Card */}
         <Card className="p-8 mb-6">
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-end mb-4 gap-2">
             {!isEditing ? (
-              <Button onClick={() => setIsEditing(true)} variant="outline" size="sm">
-                <Edit className="h-4 w-4 mr-2" />
-                Edit Profile
-              </Button>
+              <>
+                <Button onClick={() => setIsEditing(true)} variant="outline" size="sm">
+                  <Edit className="h-4 w-4 mr-2" />
+                  Edit Profile
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => {
+                    // Clear user/store context here if needed
+                    navigate("/auth/login");
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
             ) : (
               <div className="flex gap-2">
                 <Button onClick={form.handleSubmit(onSubmit)} size="sm">
@@ -377,124 +391,8 @@ const StoreProfile = () => {
           )}
         </Card>
 
-        {/* Social Media */}
-        <Card className="p-8">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Connect With Us</h2>
-          
-          {!isEditing ? (
-            <div className="flex flex-wrap gap-3">
-              {storeProfile.socialMedia.facebook && (
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="flex items-center gap-2"
-                  onClick={() => window.open(storeProfile.socialMedia.facebook, '_blank')}
-                >
-                  <Facebook className="h-5 w-5" />
-                  Facebook
-                </Button>
-              )}
-              
-              {storeProfile.socialMedia.twitter && (
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="flex items-center gap-2"
-                  onClick={() => window.open(storeProfile.socialMedia.twitter, '_blank')}
-                >
-                  <Twitter className="h-5 w-5" />
-                  Twitter
-                </Button>
-              )}
-              
-              {storeProfile.socialMedia.instagram && (
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="flex items-center gap-2"
-                  onClick={() => window.open(storeProfile.socialMedia.instagram, '_blank')}
-                >
-                  <Instagram className="h-5 w-5" />
-                  Instagram
-                </Button>
-              )}
-              
-              {storeProfile.socialMedia.linkedin && (
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="flex items-center gap-2"
-                  onClick={() => window.open(storeProfile.socialMedia.linkedin, '_blank')}
-                >
-                  <Linkedin className="h-5 w-5" />
-                  LinkedIn
-                </Button>
-              )}
-            </div>
-          ) : (
-            <Form {...form}>
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="facebook"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Facebook URL</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="https://facebook.com/yourstore" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="twitter"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Twitter URL</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="https://twitter.com/yourstore" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="instagram"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Instagram URL</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="https://instagram.com/yourstore" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="linkedin"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>LinkedIn URL</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="https://linkedin.com/company/yourstore" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </form>
-            </Form>
-          )}
-        </Card>
+
+        {/* ...existing code... */}
       </div>
     </div>
   );

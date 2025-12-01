@@ -4,7 +4,7 @@ import FairfoundLogo from "../../../public/Fairfound_Logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-card mt-auto">
+    <footer className="w-full border-t border-border bg-background py-4 text-center text-muted-foreground text-sm">
       <div className="container py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-3">
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} FairFound. Built for fair, data-driven growth.
+          &copy; {new Date().getFullYear()} FairFound. All rights reserved.
         </div>
       </div>
     </footer>

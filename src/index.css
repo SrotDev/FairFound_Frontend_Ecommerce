@@ -1,101 +1,75 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. All colors MUST be HSL. */
 
 @layer base {
   :root {
     --background: 210 20% 98%;
     --foreground: 215 25% 12%;
-
     --card: 0 0% 100%;
     --card-foreground: 215 25% 12%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 12%;
-
     --primary: 215 25% 9%;
     --primary-foreground: 0 0% 98%;
-
     --secondary: 243 75% 65%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 210 20% 95%;
     --muted-foreground: 215 16% 47%;
-
     --accent: 174 60% 51%;
     --accent-foreground: 215 25% 12%;
-
     --success: 142 71% 45%;
     --success-foreground: 0 0% 98%;
-
     --warning: 25 95% 53%;
     --warning-foreground: 0 0% 98%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 214 32% 91%;
     --input: 214 32% 91%;
     --ring: 174 60% 51%;
-
     --radius: 0.75rem;
-
     --chart-1: 174 60% 51%;
     --chart-2: 243 75% 65%;
     --chart-3: 142 71% 45%;
     --chart-4: 25 95% 53%;
     --chart-5: 0 84% 60%;
-
     --gradient-primary: linear-gradient(135deg, hsl(215 25% 9%), hsl(215 25% 20%));
     --gradient-accent: linear-gradient(135deg, hsl(174 60% 51%), hsl(174 60% 41%));
     --gradient-secondary: linear-gradient(135deg, hsl(243 75% 65%), hsl(243 75% 55%));
-    
     --shadow-soft: 0 2px 8px -2px hsl(215 25% 12% / 0.08);
     --shadow-medium: 0 8px 16px -4px hsl(215 25% 12% / 0.1);
     --shadow-large: 0 16px 32px -8px hsl(215 25% 12% / 0.12);
-    
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
   .dark {
     --background: 215 28% 8%;
     --foreground: 210 20% 98%;
-
     --card: 215 25% 12%;
     --card-foreground: 210 20% 98%;
-
     --popover: 215 25% 12%;
     --popover-foreground: 210 20% 98%;
-
     --primary: 0 0% 98%;
     --primary-foreground: 215 25% 12%;
-
     --secondary: 243 75% 60%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 215 25% 16%;
     --muted-foreground: 215 16% 65%;
-
     --accent: 174 60% 51%;
     --accent-foreground: 215 25% 12%;
-
     --success: 142 71% 45%;
     --success-foreground: 0 0% 98%;
-
     --warning: 25 95% 53%;
     --warning-foreground: 0 0% 98%;
-
     --destructive: 0 62% 50%;
     --destructive-foreground: 210 20% 98%;
-
     --border: 215 25% 20%;
     --input: 215 25% 20%;
     --ring: 174 60% 51%;
-
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
     --shadow-medium: 0 8px 16px -4px hsl(0 0% 0% / 0.4);
     --shadow-large: 0 16px 32px -8px hsl(0 0% 0% / 0.5);
@@ -106,8 +80,139 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  :root {
+   --background: 210 20% 98%;
+   --foreground: 222 47% 11%;
+
+   --card: 0 0% 100%;
+   --card-foreground: 222 47% 11%;
+
+   --popover: 0 0% 100%;
+   --popover-foreground: 222 47% 11%;
+
+   --primary: 222 47% 11%;
+   --primary-foreground: 0 0% 98%;
+
+   --secondary: 243 70.5882% 73.3333%;
+   --secondary-foreground: 0 0% 98%;
+
+   --muted: 210 40% 96%;
+   --muted-foreground: 215 16% 47%;
+
+   --accent: 217 36.4583% 62.3529%;
+   --accent-foreground: 0 0% 98%;
+
+   --success: 173 58% 39%;
+   --success-foreground: 0 0% 98%;
+
+   --warning: 25 95% 53%;
+   --warning-foreground: 0 0% 98%;
+
+   --destructive: 0 84% 60%;
+   --destructive-foreground: 0 0% 98%;
+
+   --border: 214 32% 91%;
+   --input: 214 32% 91%;
+   --ring: 173 58% 39%;
+
+   --radius: 0.75rem;
+
+   --gradient-hero: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(243 75% 59%) 100%);
+   --gradient-accent: linear-gradient(135deg, hsl(173 58% 39%) 0%, hsl(173 58% 50%) 100%);
+   --shadow-soft: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
+   --shadow-medium: 0 4px 16px -4px hsl(222 47% 11% / 0.12);
+   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+   --sidebar-background: 0 0% 98%;
+   --sidebar-foreground: 240 5.3% 26.1%;
+   --sidebar-primary: 240 5.9% 10%;
+   --sidebar-primary-foreground: 0 0% 98%;
+   --sidebar-accent: 240 4.8% 95.9%;
+   --sidebar-accent-foreground: 240 5.9% 10%;
+   --sidebar-border: 220 13% 91%;
+   --sidebar-ring: 217.2 91.2% 59.8%;
+   --font-sans: Poppins, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+   --chart-1: 217 72% 50%; /* accent blue */
+   --chart-2: 173 58% 39%; /* success teal */
+   --chart-3: 243 70% 60%; /* secondary violet */
+   --chart-4: 25 95% 53%;  /* warning orange */
+   --chart-5: 0 84% 60%;   /* destructive red */
+   --chart-6: 215 16% 47%; /* muted gray */
+  }
+
+  .dark {
+   --background: 222 47% 11%;
+   --foreground: 0 0% 98%;
+
+   --card: 222 40% 15%;
+   --card-foreground: 0 0% 98%;
+
+   --popover: 222 40% 15%;
+   --popover-foreground: 0 0% 98%;
+
+   --primary: 0 0% 98%;
+   --primary-foreground: 222 47% 11%;
+
+   --secondary: 243 75% 59%;
+   --secondary-foreground: 0 0% 98%;
+
+   --muted: 217 33% 18%;
+   --muted-foreground: 215 20% 65%;
+
+   --accent: 173 58% 39%;
+   --accent-foreground: 0 0% 98%;
+
+   --success: 173 58% 39%;
+   --success-foreground: 0 0% 98%;
+
+   --warning: 25 95% 53%;
+   --warning-foreground: 0 0% 98%;
+
+   --destructive: 0 63% 31%;
+   --destructive-foreground: 0 0% 98%;
+
+   --border: 217 33% 18%;
+   --input: 217 33% 18%;
+   --ring: 173 58% 39%;
+   --sidebar-background: 240 5.9% 10%;
+   --sidebar-foreground: 240 4.8% 95.9%;
+   --sidebar-primary: 224.3 76.3% 48%;
+   --sidebar-primary-foreground: 0 0% 100%;
+   --sidebar-accent: 240 3.7% 15.9%;
+   --sidebar-accent-foreground: 240 4.8% 95.9%;
+   --sidebar-border: 240 3.7% 15.9%;
+   --sidebar-ring: 217.2 91.2% 59.8%;
+   --font-sans: Poppins, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+   --chart-1: 217 85% 65%;
+   --chart-2: 173 70% 55%;
+   --chart-3: 243 80% 70%;
+   --chart-4: 25 95% 60%;
+   --chart-5: 0 84% 65%;
+   --chart-6: 215 20% 65%;
+  }
+}
+
+@layer base {
+  * {
+   @apply border-border;
+  }
+
+  body {
+   @apply bg-background text-foreground antialiased;
+   font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+   @apply font-bold tracking-tight;
   }
 }

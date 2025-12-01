@@ -79,112 +79,35 @@ const ProductComparison = () => {
 
         {/* Products Grid */}
         <div className="grid gap-4 mb-6">
-          {filteredProducts.map((product) => {
-            const status = getComparisonStatus(product);
-            const priceDiff = product.price - product.competitorAvgPrice;
-
-            return (
-              <Card key={product.id} className="p-6 hover:shadow-md transition-shadow">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">{product.name}</h3>
-                        <p className="text-sm text-muted-foreground">{product.category}</p>
-                      </div>
-                      <Badge
-                        variant={status.type === "success" ? "default" : "destructive"}
-                        className={
-                          status.type === "success"
-                            ? "bg-success text-success-foreground"
-                            : status.type === "warning"
-                            ? "bg-warning text-warning-foreground"
-                            : ""
-                        }
-                      >
-                        {status.text}
-                      </Badge>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                      <div>
-                        <p className="text-xs text-muted-foreground">Your Price</p>
-                        <p className="text-lg font-bold text-foreground">${product.price}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Market Avg</p>
-                        <p className="text-lg font-bold text-muted-foreground">${product.competitorAvgPrice}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Your Rating</p>
-                        <div className="flex items-center gap-1">
-                          <p className="text-lg font-bold text-foreground">{product.avgRating}</p>
-                          {product.avgRating > product.competitorAvgRating ? (
-                            <TrendingUp className="h-4 w-4 text-success" />
-                          ) : (
-                            <TrendingDown className="h-4 w-4 text-destructive" />
-                          )}
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Visibility</p>
-                        <p className="text-lg font-bold text-foreground">{product.visibilityScore}/100</p>
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <Card
+                key={product.id}
+                className="group p-0 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer border-0 bg-gradient-to-br from-white to-gray-50"
+                onClick={() => navigate(`/ecommerce/comparison/${product.id}`)}
+              >
+                <div className="h-40 w-full bg-gray-100 flex items-center justify-center">
+                  {/* Replace with actual product image if available */}
+                  <img
+                    src={`https://source.unsplash.com/400x300/?${encodeURIComponent((product.name || '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '+'))},${encodeURIComponent((product.category || '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '+'))}`}
+                    alt={product.name}
+                    className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-300"
+                    onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://via.placeholder.com/400x300?text=No+Image'; }}
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-foreground mb-1 truncate">{product.name}</h3>
+                  <p className="text-xs text-muted-foreground mb-2">{product.category}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-base font-bold text-primary">${product.price}</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">View Details</span>
                   </div>
                 </div>
-
-                {Math.abs(priceDiff) > 5 && (
-                  <div className="mt-4 p-3 bg-muted rounded-lg flex items-start gap-2">
-                    <AlertCircle className="h-4 w-4 text-muted-foreground mt-0.5" />
-                    <p className="text-sm text-muted-foreground">
-                      {priceDiff > 0
-                        ? `Consider lowering price by $${Math.abs(priceDiff).toFixed(2)} to match market average.`
-                        : `Your price is competitive. Consider testing a ${Math.abs(priceDiff).toFixed(2)} increase.`}
-                    </p>
-                  </div>
-                )}
               </Card>
-            );
-          })}
-        </div>
-
-        {/* Competitor Summary */}
-        <Card className="p-6 mb-8">
-          <h3 className="text-lg font-semibold text-foreground mb-4">Market Benchmarks</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Avg Market Price</p>
-              <p className="text-2xl font-bold text-foreground">
-                ${(products.reduce((sum, p) => sum + p.competitorAvgPrice, 0) / products.length).toFixed(2)}
-              </p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Avg Market Rating</p>
-              <p className="text-2xl font-bold text-foreground">
-                {(products.reduce((sum, p) => sum + p.competitorAvgRating, 0) / products.length).toFixed(1)}
-              </p>
-            </div>
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Your Avg Price</p>
-              <p className="text-2xl font-bold text-foreground">
-                ${(products.reduce((sum, p) => sum + p.price, 0) / products.length).toFixed(2)}
-              </p>
-            </div>
+            ))}
           </div>
-        </Card>
-
-        {/* CTA */}
-        <div className="flex justify-center">
-          <Button
-            size="lg"
-            onClick={() => navigate("/ecommerce/sentiment")}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            Get sentiment analysis
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
         </div>
+
       </div>
     </div>
   );

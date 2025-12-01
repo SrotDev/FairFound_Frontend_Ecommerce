@@ -195,7 +195,7 @@ const EcommerceReEvaluation = () => {
           <Button
             size="lg"
             variant="outline"
-            onClick={() => navigate("/ecommerce/products")}
+            onClick={() => navigate("/ecommerce/comparison")}
           >
             Compare your products again
           </Button>

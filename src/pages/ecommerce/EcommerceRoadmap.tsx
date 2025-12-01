@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, FileText, Headphones, Megaphone, DollarSign } from "lucide-react";
+import { SimpleBarChart } from "@/components/charts/SimpleBarChart";
 
 const categoryIcons = {
   Listings: FileText,
@@ -22,6 +23,20 @@ const categoryColors = {
 };
 
 const EcommerceRoadmap = () => {
+      // Example before/after metrics for visual matrix
+      const improvementMatrix = [
+        { label: "Visibility", value: 60, color: "hsl(var(--accent))" },
+        { label: "Conversion Rate", value: 2.1, color: "hsl(var(--success))" },
+        { label: "Engagement", value: 45, color: "hsl(var(--secondary))" },
+        { label: "Revenue", value: 5000, color: "hsl(var(--warning))" },
+      ];
+      const projectedMatrix = [
+        { label: "Visibility", value: 85, color: "hsl(var(--accent))" },
+        { label: "Conversion Rate", value: 3.8, color: "hsl(var(--success))" },
+        { label: "Engagement", value: 80, color: "hsl(var(--secondary))" },
+        { label: "Revenue", value: 12000, color: "hsl(var(--warning))" },
+      ];
+    // Dummy store profile for sidebar cards (replace with real context if available)
   const navigate = useNavigate();
   const { roadmap, toggleMilestone, applyImprovements } = useEcommerce();
 
@@ -43,51 +58,21 @@ const EcommerceRoadmap = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
+      <div className="container py-12 max-w-5xl">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">E-commerce Roadmap</h1>
+          <h1 className="mb-2 text-4xl font-bold text-primary">E-commerce Roadmap</h1>
           <p className="text-lg text-muted-foreground">
-            Step-by-step actions to improve visibility, conversions, and customer satisfaction.
+            Follow these step-by-step guidelines to improve your store's visibility, conversions, and customer satisfaction.
           </p>
         </div>
 
-        {/* Progress Overview */}
-        <Card className="p-6 mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground">Overall Progress</h3>
-              <p className="text-sm text-muted-foreground">
-                {completedCount} of {roadmap.length} milestones completed
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-3xl font-bold text-accent">{Math.round(progressPercentage)}%</p>
-            </div>
-          </div>
-          <Progress value={progressPercentage} className="h-3" />
+        
 
-          <div className="mt-6 p-4 bg-accent/5 border border-accent/20 rounded-lg">
-            <h4 className="font-semibold text-foreground mb-2">Projected Impact</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div>
-                <p className="text-muted-foreground">Visibility improvement:</p>
-                <p className="font-semibold text-accent">+{Math.round(completedCount * 1.5)}-{Math.round(completedCount * 2)} points</p>
-              </div>
-              <div>
-                <p className="text-muted-foreground">Conversion rate improvement:</p>
-                <p className="font-semibold text-accent">+{(completedCount * 0.3).toFixed(1)}-{(completedCount * 0.5).toFixed(1)}%</p>
-              </div>
-            </div>
-          </div>
-        </Card>
-
-        {/* Milestones by Category */}
-        <div className="space-y-6 mb-8">
+        {/* Step-by-step Roadmap Guidelines */}
+        <div className="space-y-8 mb-8">
           {Object.entries(groupedMilestones).map(([category, milestones]) => {
             const Icon = categoryIcons[category as keyof typeof categoryIcons];
             const color = categoryColors[category as keyof typeof categoryColors];
-
             return (
               <Card key={category} className="p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -96,57 +81,43 @@ const EcommerceRoadmap = () => {
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">{category}</h3>
                 </div>
-
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {milestones.map((milestone) => (
-                    <div
-                      key={milestone.id}
-                      className={`p-4 rounded-lg border transition-all ${
-                        milestone.completed ? "bg-muted/50 border-muted" : "bg-card border-border hover:border-accent"
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <Checkbox
-                          checked={milestone.completed}
-                          onCheckedChange={() => toggleMilestone(milestone.id)}
-                          className="mt-1"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-start justify-between gap-2 mb-2">
-                            <h4 className={`font-semibold ${milestone.completed ? "text-muted-foreground line-through" : "text-foreground"}`}>
-                              {milestone.title}
-                            </h4>
-                            <div className="flex gap-2">
-                              <Badge
-                                variant="outline"
-                                className={
-                                  milestone.difficulty === "Easy"
-                                    ? "bg-success/10 text-success border-success/20"
-                                    : milestone.difficulty === "Medium"
-                                    ? "bg-warning/10 text-warning border-warning/20"
-                                    : "bg-destructive/10 text-destructive border-destructive/20"
-                                }
-                              >
-                                {milestone.difficulty}
-                              </Badge>
-                              <Badge
-                                variant="outline"
-                                className={
-                                  milestone.estimatedImpact === "High"
-                                    ? "bg-accent/10 text-accent border-accent/20"
-                                    : milestone.estimatedImpact === "Medium"
-                                    ? "bg-secondary/10 text-secondary border-secondary/20"
-                                    : "bg-muted text-muted-foreground"
-                                }
-                              >
-                                {milestone.estimatedImpact} Impact
-                              </Badge>
-                            </div>
-                          </div>
-                          <p className={`text-sm ${milestone.completed ? "text-muted-foreground" : "text-muted-foreground"}`}>
-                            {milestone.description}
-                          </p>
-                        </div>
+                    <div key={milestone.id} className="p-4 border rounded-lg bg-card">
+                      <h4 className="font-semibold text-lg mb-2 text-primary">{milestone.title}</h4>
+                      <p className="text-sm text-muted-foreground mb-2">{milestone.description}</p>
+                      {/* More detailed step-by-step guidelines (static, until backend provides per-milestone steps) */}
+                      <ul className="list-disc ml-6 text-sm text-muted-foreground mb-2 space-y-1">
+                        <li>Audit current state and define the desired outcome.</li>
+                        <li>Apply recommended changes following the milestone description.</li>
+                        <li>Validate with metrics (visibility, conversion, engagement where relevant).</li>
+                        <li>Document changes and plan the next iteration.</li>
+                      </ul>
+                      <div className="flex gap-2 mt-2">
+                        <Badge
+                          variant="outline"
+                          className={
+                            milestone.difficulty === "Easy"
+                              ? "bg-success/10 text-success border-success/20"
+                              : milestone.difficulty === "Medium"
+                              ? "bg-warning/10 text-warning border-warning/20"
+                              : "bg-destructive/10 text-destructive border-destructive/20"
+                          }
+                        >
+                          {milestone.difficulty}
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className={
+                            milestone.estimatedImpact === "High"
+                              ? "bg-accent/10 text-accent border-accent/20"
+                              : milestone.estimatedImpact === "Medium"
+                              ? "bg-secondary/10 text-secondary border-secondary/20"
+                              : "bg-muted text-muted-foreground"
+                          }
+                        >
+                          {milestone.estimatedImpact} Impact
+                        </Badge>
                       </div>
                     </div>
                   ))}
@@ -156,30 +127,32 @@ const EcommerceRoadmap = () => {
           })}
         </div>
 
-        {/* Info Card */}
-        <Card className="p-6 mb-8 bg-gradient-to-br from-accent/5 to-secondary/5 border-accent/20">
-          <h3 className="text-lg font-semibold text-foreground mb-2">💡 About Visibility Boosts</h3>
-          <p className="text-sm text-muted-foreground">
-            Completing milestones can lead to visibility boosts: better ranking in search results, more clicks, and increased reviews. 
-            Each improvement compounds over time, creating a flywheel effect for your store's growth.
-          </p>
+        {/* If you complete this roadmap Section with Improvement Matrix */}
+        <Card className="p-8 mt-10 shadow-lg border-accent/30 bg-gradient-to-br from-accent/5 to-secondary/5">
+          <h3 className="text-2xl font-bold text-accent mb-4">If you complete this roadmap</h3>
+          <ul className="list-disc ml-6 text-muted-foreground text-base space-y-2 mb-6">
+            <li>Your store will be optimized for higher visibility and conversions.</li>
+            <li>You will have implemented best practices for product listings, pricing, marketing, and customer service.</li>
+            <li>Expect improved search ranking, more customer engagement, and increased sales.</li>
+            <li>You'll be ready for advanced growth strategies and future scaling.</li>
+          </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-2 text-muted-foreground">Current Metrics</h3>
+              <SimpleBarChart data={improvementMatrix.map(m => ({ ...m, value: Math.round(m.value) }))} maxValue={120} />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 text-muted-foreground">After Completing Roadmap</h3>
+              <SimpleBarChart data={projectedMatrix.map(m => ({ ...m, value: Math.round(m.value) }))} maxValue={120} />
+            </div>
+          </div>
+          <div className="mt-6 text-sm text-muted-foreground">
+            <span className="font-semibold text-success">Noticeable improvement</span> in all key areas after following this roadmap.
+          </div>
         </Card>
 
-        {/* CTA */}
-        <div className="flex justify-center">
-          <Button
-            size="lg"
-            onClick={handleComplete}
-            disabled={completedCount === 0}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            Complete your improvements
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
       </div>
     </div>
   );
 };
-
 export default EcommerceRoadmap;
